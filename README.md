@@ -1,39 +1,47 @@
-# Smart Plug Pro Dashboard
+# ⚡ Smart Plug Pro Dashboard
 
-ระบบ Smart Plug สำหรับตรวจวัดการใช้พลังงานไฟฟ้าด้วย ESP32 และแสดงผลแบบ Real-time ผ่าน Dashboard บนเว็บ โดยใช้ MQTT Protocol ในการสื่อสารข้อมูล
-
----
-
-# Features
-
-- วัดค่ากระแสไฟฟ้า (Ampere)
-- คำนวณกำลังไฟฟ้า (Watt)
-- คำนวณพลังงานสะสม (kWh)
-- คำนวณค่าไฟฟ้า (THB)
-- วิเคราะห์ระดับการใช้พลังงาน
-- แสดงผลแบบ Real-time ผ่าน MQTT
-- บันทึกประวัติการใช้พลังงานใน LocalStorage
-- รองรับการเชื่อมต่อใหม่อัตโนมัติ (Auto Reconnect)
+Real-time IoT Smart Energy Monitoring System using ESP32 and MQTT Protocol
 
 ---
 
-# Project Structure
-
-```bash
-smartplug-project/
-│
-├── esp32/
-│   └── smartplug.ino
-│
-├── dashboard/
-│   └── index.html
-│
-└── README.md
-```
+![Platform](https://img.shields.io/badge/Platform-ESP32-blue)
+![Protocol](https://img.shields.io/badge/Protocol-MQTT-green)
+![Frontend](https://img.shields.io/badge/Frontend-HTML%20CSS%20JS-orange)
+![Status](https://img.shields.io/badge/Status-Completed-success)
 
 ---
 
-# Technologies Used
+# 📌 Overview
+
+Smart Plug Pro Dashboard เป็นระบบ IoT สำหรับตรวจวัดการใช้พลังงานไฟฟ้าของอุปกรณ์ไฟฟ้าแบบ Real-time โดยใช้ ESP32 เป็นหน่วยประมวลผลหลัก และใช้ MQTT Protocol ในการสื่อสารข้อมูลระหว่างอุปกรณ์และ Web Dashboard
+
+ระบบสามารถตรวจสอบ:
+
+- กระแสไฟฟ้า (Ampere)
+- กำลังไฟฟ้า (Watt)
+- พลังงานสะสม (kWh)
+- ค่าไฟฟ้า (THB)
+- ระดับการใช้พลังงาน
+
+พร้อมทั้งบันทึกประวัติการใช้งานและแสดงผลแบบ Real-time ผ่าน Dashboard บนเว็บเบราว์เซอร์
+
+---
+
+# 🚀 Features
+
+✅ Real-time Power Monitoring  
+✅ MQTT Communication  
+✅ Energy Consumption Tracking  
+✅ Electricity Cost Calculation  
+✅ Historical Usage Log  
+✅ Auto Reconnect MQTT  
+✅ Responsive Dashboard UI  
+✅ LocalStorage Data Saving  
+✅ Power Usage Analysis  
+
+---
+
+# 🧠 Technologies Used
 
 ## ESP32 Side
 
@@ -52,25 +60,40 @@ smartplug-project/
 
 ---
 
-# System Workflow
+# 📂 Project Structure
 
-## ESP32
-
-ESP32 จะทำงานดังนี้:
-
-1. เชื่อมต่อ WiFi
-2. เชื่อมต่อ MQTT Broker
-3. อ่านค่า Analog จาก GPIO34
-4. คำนวณ:
-   - กระแสไฟฟ้า (Amp)
-   - กำลังไฟฟ้า (Watt)
-   - พลังงานสะสม (kWh)
-   - ค่าไฟฟ้า (THB)
-5. ส่งข้อมูลแบบ JSON ทุก 5 วินาที
+```bash
+smartplug-project/
+│
+├── esp32/
+│   └── smartplug.ino
+│
+├── dashboard/
+│   └── index.html
+│
+├── assets/
+│   └── dashboard-preview.png
+│
+└── README.md
+```
 
 ---
 
-# Example JSON Payload
+# ⚙️ System Workflow
+
+## ESP32 Process
+
+ESP32 performs:
+
+1. WiFi Connection
+2. MQTT Broker Connection
+3. Analog Reading from GPIO34
+4. Power Calculation
+5. JSON Data Transmission every 5 seconds
+
+---
+
+# 📡 Example JSON Payload
 
 ```json
 {
@@ -86,21 +109,21 @@ ESP32 จะทำงานดังนี้:
 
 ---
 
-# Dashboard Features
+# 📊 Dashboard Features
 
-Dashboard สามารถ:
+The dashboard supports:
 
-- Subscribe MQTT Topic
-- รับข้อมูลแบบ Real-time
-- แสดงข้อมูลผ่าน Card UI
-- วิเคราะห์ระดับการใช้พลังงาน
-- บันทึกข้อมูลลง LocalStorage
-- แสดงสถิติย้อนหลัง
-- ตรวจจับค่าการใช้ไฟสูงสุด
+- MQTT Subscribe
+- Real-time Data Visualization
+- Card-based UI Display
+- Power Usage Detection
+- Historical Usage Storage
+- LocalStorage Backup
+- Highest Usage Analysis
 
 ---
 
-# MQTT Configuration
+# 🔌 MQTT Configuration
 
 ## Broker
 
@@ -116,36 +139,23 @@ cs423/smartplug/petch_1660702588
 
 ---
 
-# Installation Guide
+# 🌐 MQTT Connections
 
-## 1. Upload Code ลง ESP32
-
-ติดตั้ง Library:
-
-- WiFi
-- PubSubClient
-
-จากนั้น Upload:
+## Dashboard WebSocket
 
 ```text
-smartplug.ino
+wss://broker.hivemq.com:8884/mqtt
+```
+
+## ESP32 TCP MQTT
+
+```text
+broker.hivemq.com:1883
 ```
 
 ---
 
-## 2. เปิด Dashboard
-
-เปิดไฟล์:
-
-```text
-index.html
-```
-
-ผ่าน Browser
-
----
-
-# Power Calculation
+# 🧮 Power Calculation
 
 ## Power Formula
 
@@ -167,7 +177,7 @@ Cost = kWh × 4.5
 
 ---
 
-# Power Usage Levels
+# 📈 Power Usage Levels
 
 | Watt Range | Level |
 |---|---|
@@ -179,25 +189,38 @@ Cost = kWh × 4.5
 
 ---
 
-# MQTT Connection
+# 🖥️ Installation Guide
 
-## Dashboard (WebSocket)
+## 1. Upload ESP32 Code
+
+Install Libraries:
+
+- WiFi
+- PubSubClient
+
+Upload:
 
 ```text
-wss://broker.hivemq.com:8884/mqtt
-```
-
-## ESP32 (TCP MQTT)
-
-```text
-broker.hivemq.com:1883
+smartplug.ino
 ```
 
 ---
 
-# Main Features
+## 2. Open Dashboard
 
-- Real-time Power Monitoring
+Open:
+
+```text
+index.html
+```
+
+using Browser
+
+---
+
+# 📱 Main Features
+
+- Real-time Dashboard
 - Animated Progress Bar
 - Power Trend Analysis
 - Historical Usage Table
@@ -205,37 +228,38 @@ broker.hivemq.com:1883
 
 ---
 
-# Advantages
+# 🌟 Advantages
 
-- ใช้งานง่าย
-- Real-time Monitoring
-- Responsive UI
-- รองรับมือถือ
-- ไม่มี Backend Server
-- ใช้ Public MQTT Broker
+- Lightweight System
+- No Backend Server
+- Mobile Friendly
+- Responsive Design
+- Public MQTT Broker
+- Easy Deployment
 
 ---
 
-# Future Improvements
+# 🔮 Future Improvements
 
-- เพิ่ม Relay เปิด/ปิดปลั๊กไฟ
-- แจ้งเตือนเมื่อใช้ไฟเกินกำหนด
-- บันทึกข้อมูลลง Database
-- สร้างกราฟการใช้พลังงาน
-- Login Authentication
+- Smart Relay ON/OFF
+- Overload Notifications
+- Database Integration
+- Firebase Integration
+- Node-RED Support
 - Mobile Application
-- เชื่อมต่อ Firebase
-- เชื่อมต่อ Node-RED
+- Authentication System
+- Energy Graph Analytics
 
 ---
 
-# Developer
+# 👨‍💻 Developer
 
 - Name: Petch
 - Course: CS423 IoT Project
+- University: Bangkok University
 
 ---
 
-# License
+# 📄 License
 
 This project is for educational purposes only.
