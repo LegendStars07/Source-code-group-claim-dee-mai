@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "author": "AEKPHISIT KANJANAPHISITCHAI",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    { "type": "wokwi-potentiometer", "id": "pot1", "top": -78.1, "left": -125, "attrs": {} }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "esp:3V3", "pot1:VCC", "red", [ "h0" ] ],
+    [ "pot1:GND", "esp:GND.1", "limegreen", [ "v0" ] ],
+    [ "esp:34", "pot1:SIG", "cyan", [ "h0" ] ]
+  ],
+  "dependencies": {}
+}
