@@ -1,250 +1,235 @@
-Smart Plug Pro Dashboard
+# Smart Plug Pro Dashboard
+
 ระบบ Smart Plug สำหรับตรวจวัดการใช้พลังงานไฟฟ้าด้วย ESP32 และแสดงผลแบบ Real-time ผ่าน Dashboard บนเว็บ โดยใช้ MQTT Protocol ในการสื่อสารข้อมูล
 
-คุณสมบัติของระบบ
+---
 
+## Features
 
-วัดค่ากระแสไฟฟ้า (Ampere)
+- วัดค่ากระแสไฟฟ้า (Ampere)
+- คำนวณกำลังไฟฟ้า (Watt)
+- คำนวณพลังงานสะสม (kWh)
+- คำนวณค่าไฟฟ้า (THB)
+- วิเคราะห์ระดับการใช้พลังงาน
+- แสดงผลแบบ Real-time ผ่าน MQTT
+- บันทึกประวัติการใช้พลังงานใน LocalStorage
+- รองรับการเชื่อมต่อใหม่อัตโนมัติ (Auto Reconnect)
 
+---
 
-คำนวณกำลังไฟฟ้า (Watt)
+# Project Structure
 
+```bash
+smartplug-project/
+│
+├── esp32/
+│   └── smartplug.ino
+│
+├── dashboard/
+│   └── index.html
+│
+└── README.md
+```
 
-คำนวณพลังงานสะสม (kWh)
+---
 
+# Technologies Used
 
-คำนวณค่าไฟฟ้า (THB)
+## ESP32 Side
 
+- ESP32
+- Arduino Framework
+- WiFi.h
+- PubSubClient.h
 
-วิเคราะห์ระดับการใช้พลังงาน
+## Dashboard Side
 
+- HTML5
+- CSS3
+- JavaScript
+- MQTT.js
+- HiveMQ Broker
 
-แสดงผลแบบ Real-time ผ่าน MQTT
+---
 
+# System Workflow
 
-บันทึกประวัติการใช้พลังงานใน LocalStorage
+## ESP32
 
+ESP32 จะทำงานดังนี้:
 
-รองรับการเชื่อมต่อใหม่อัตโนมัติ (Auto Reconnect)
+1. เชื่อมต่อ WiFi
+2. เชื่อมต่อ MQTT Broker
+3. อ่านค่า Analog จาก GPIO34
+4. คำนวณ:
+   - กระแสไฟฟ้า (Amp)
+   - กำลังไฟฟ้า (Watt)
+   - พลังงานสะสม (kWh)
+   - ค่าไฟฟ้า (THB)
+5. ส่งข้อมูลแบบ JSON ทุก 5 วินาที
 
+---
 
+# Example JSON Payload
 
-โครงสร้างโปรเจกต์
-smartplug-project/│├── esp32/│   └── smartplug.ino│├── dashboard/│   └── index.html│└── README.md
+```json
+{
+  "watt": 352.4,
+  "amp": 1.60,
+  "level": "Low",
+  "kwh": 0.0241,
+  "cost": 0.11,
+  "max_watt": 502.0,
+  "max_level": "Medium"
+}
+```
 
-เทคโนโลยีที่ใช้
-ESP32 Side
+---
 
+# Dashboard Features
 
-ESP32
+Dashboard สามารถ:
 
+- Subscribe MQTT Topic
+- รับข้อมูลแบบ Real-time
+- แสดงข้อมูลผ่าน Card UI
+- วิเคราะห์ระดับการใช้พลังงาน
+- บันทึกข้อมูลลง LocalStorage
+- แสดงสถิติย้อนหลัง
+- ตรวจจับค่าการใช้ไฟสูงสุด
 
-Arduino Framework
+---
 
+# MQTT Configuration
 
-WiFi.h
+## Broker
 
-
-PubSubClient.h
-
-
-Dashboard Side
-
-
-HTML5
-
-
-CSS3
-
-
-JavaScript
-
-
-MQTT.js
-
-
-HiveMQ Broker
-
-
-
-การทำงานของระบบ
-ESP32
-ESP32 จะ:
-
-
-เชื่อมต่อ WiFi
-
-
-เชื่อมต่อ MQTT Broker
-
-
-อ่านค่า Analog จาก GPIO34
-
-
-คำนวณ:
-
-
-กระแสไฟ (Amp)
-
-
-กำลังไฟ (Watt)
-
-
-พลังงานสะสม (kWh)
-
-
-ค่าไฟ
-
-
-
-
-ส่งข้อมูลแบบ JSON ไปยัง MQTT Topic ทุก 5 วินาที
-
-
-ตัวอย่าง JSON Payload:
-{  "watt": 352.4,  "amp": 1.60,  "level": "Low",  "kwh": 0.0241,  "cost": 0.11,  "max_watt": 502.0,  "max_level": "Medium"}
-
-Dashboard
-Dashboard จะ:
-
-
-Subscribe MQTT Topic
-
-
-รับข้อมูลแบบ Real-time
-
-
-แสดงข้อมูลผ่าน Card UI
-
-
-แสดงระดับการใช้พลังงาน
-
-
-บันทึกประวัติลง LocalStorage
-
-
-แสดงสถิติย้อนหลัง
-
-
-
-MQTT Configuration
-Broker
+```text
 broker.hivemq.com
-Topic
-cs423/smartplug/petch_1660702588
+```
 
-วิธีใช้งาน
-Upload Code ลง ESP32
+## Topic
+
+```text
+cs423/smartplug/petch_1660702588
+```
+
+---
+
+# Installation Guide
+
+## 1. Upload Code ลง ESP32
+
 ติดตั้ง Library:
 
+- WiFi
+- PubSubClient
 
-PubSubClient
+จากนั้น Upload:
 
-
-WiFi
-
-
-จากนั้น Upload ไฟล์:
+```text
 smartplug.ino
+```
 
-เปิด Dashboard
+---
+
+## 2. เปิด Dashboard
+
 เปิดไฟล์:
+
+```text
 index.html
+```
+
 ผ่าน Browser
 
-การคำนวณพลังงาน
-กำลังไฟฟ้า
-Watt = Amp × 220V
-พลังงานสะสม
-kWh += (Watt / 1000) × เวลา(ชั่วโมง)
-ค่าไฟ
-Cost = kWh × 4.5 บาท
+---
 
-ระดับการใช้พลังงาน
-WattLevel< 100WStandby100 - 499WLow500 - 999WMedium1000 - 1999WHigh≥ 2000WVeryHigh
+# Power Calculation
 
-ตัวอย่างหน้าจอ Dashboard
-ฟีเจอร์หลัก:
+## Power Formula
 
+:contentReference[oaicite:0]{index=0}
 
-Real-time Power Monitoring
+## Energy Consumption
 
+:contentReference[oaicite:1]{index=1}
 
-Animated Progress Bar
+## Electricity Cost
 
+:contentReference[oaicite:2]{index=2}
 
-Power Trend Analysis
+---
 
+# Power Usage Levels
 
-Historical Usage Table
+| Watt Range | Level |
+|---|---|
+| < 100W | Standby |
+| 100 - 499W | Low |
+| 500 - 999W | Medium |
+| 1000 - 1999W | High |
+| ≥ 2000W | Very High |
 
+---
 
-Highest Usage Detection
+# MQTT Connection
 
+## Dashboard (WebSocket)
 
-
-การเชื่อมต่อ MQTT
-Dashboard ใช้ WebSocket:
+```text
 wss://broker.hivemq.com:8884/mqtt
-ESP32 ใช้ TCP MQTT:
+```
+
+## ESP32 (TCP MQTT)
+
+```text
 broker.hivemq.com:1883
+```
 
-จุดเด่นของโปรเจกต์
+---
 
+# Main Features
 
-ใช้งานง่าย
+- Real-time Power Monitoring
+- Animated Progress Bar
+- Power Trend Analysis
+- Historical Usage Table
+- Highest Usage Detection
 
+---
 
-Real-time Monitoring
+# Advantages
 
+- ใช้งานง่าย
+- Real-time Monitoring
+- Responsive UI
+- รองรับมือถือ
+- ไม่มี Backend Server
+- ใช้ Public MQTT Broker
 
-Responsive UI
+---
 
+# Future Improvements
 
-รองรับมือถือ
+- เพิ่ม Relay เปิด/ปิดปลั๊กไฟ
+- แจ้งเตือนเมื่อใช้ไฟเกินกำหนด
+- บันทึกข้อมูลลง Database
+- สร้างกราฟการใช้พลังงาน
+- Login Authentication
+- Mobile Application
+- เชื่อมต่อ Firebase
+- เชื่อมต่อ Node-RED
 
+---
 
-ไม่มี Backend Server
+# Developer
 
+- Name: Petch
+- Course: CS423 IoT Project
 
-ใช้ Public MQTT Broker
+---
 
+# License
 
-
-อนาคตที่สามารถพัฒนาเพิ่มได้
-
-
-เพิ่ม Relay เปิด/ปิดปลั๊กไฟ
-
-
-แจ้งเตือนเมื่อใช้ไฟเกินกำหนด
-
-
-บันทึกข้อมูลลง Database
-
-
-สร้างกราฟการใช้พลังงาน
-
-
-Login Authentication
-
-
-Mobile Application
-
-
-เชื่อมต่อ Firebase หรือ Node-RED
-
-
-
-ผู้พัฒนา
-
-
-ชื่อ: Petch
-
-
-วิชา: CS423 IoT Project
-
-
-
-License
-This project is for educational purposes.
+This project is for educational purposes only.
