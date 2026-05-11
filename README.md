@@ -4,7 +4,7 @@
 
 ---
 
-## Features
+# Features
 
 - วัดค่ากระแสไฟฟ้า (Ampere)
 - คำนวณกำลังไฟฟ้า (Watt)
@@ -149,15 +149,21 @@ index.html
 
 ## Power Formula
 
-:contentReference[oaicite:0]{index=0}
+```text
+Watt = Amp × 220V
+```
 
 ## Energy Consumption
 
-:contentReference[oaicite:1]{index=1}
+```text
+kWh += (Watt / 1000) × Time(hours)
+```
 
 ## Electricity Cost
 
-:contentReference[oaicite:2]{index=2}
+```text
+Cost = kWh × 4.5
+```
 
 ---
 
