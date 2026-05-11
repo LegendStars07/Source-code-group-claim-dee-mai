@@ -258,7 +258,7 @@ using Browser
 
 # 👨‍💻 Developer
 
-- Name: Petch
+- Name: claim dee mai
 - Course: CS423 IoT Project
 - University: Bangkok University
 
